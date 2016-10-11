@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-app="myApp">
+
+$http 是 AngularJS 中的一个核心服务，用于读取远程服务器的数据。<br/><br/>
+
+$http.get(url) 是用于读取服务器数据的函数。<br/>
+<div ng-controller="siteCtrl">
+    <ul>
+        <li ng-repeat="x in names">
+            {{ x.Name + ', ' + x.Country }}
+        </li>
+    </ul>
+</div>
+
+
+
+</body>
+<script>
+    var app = angular.module('myApp', []);
+
+    app.controller('siteCtrl', function($scope, $http) {
+        $http.get("sites.json").success(function (response) {
+            $scope.names = response.sites;
+        });
+    });
+</script>
+</html>

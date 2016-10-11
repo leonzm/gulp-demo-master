@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        table, th , td {
+            border: 1px solid grey;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+        table tr:nth-child(odd) {
+            background-color: #f1f1f1;
+        }
+        table tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body ng-app="myApp">
+
+在表格中显示数据
+<div ng-controller="customersCtrl">
+    <table>
+        <tr ng-repeat="x in names | orderBy : 'Country'"> <!--使用 orderBy 过滤器-->
+            <td>{{ $index + 1 }}</td> <!--显示序号 ($index)-->
+            <td>{{ x.Name }}</td>
+            <td>{{ x.Country | uppercase }}</td> <!--使用 uppercase 过滤器-->
+        </tr>
+    </table>
+    <br/><br/>
+    <table>
+        <tr ng-repeat="x in names">
+            <td ng-if="$odd" style="background-color:#CCE8CF">{{ x.Name }}</td>
+            <td ng-if="$even">{{ x.Name }}</td>
+            <td ng-if="$odd" style="background-color:#CCE8CF">{{ x.Country }}</td>
+            <td ng-if="$even">{{ x.Country }}</td>
+        </tr>
+    </table>
+</div>
+
+</body>
+<script>
+    var app = angular.module('myApp', []);
+
+    app.controller('customersCtrl', function($scope, $http) {
+        $http.get("Customers_JSON.json").success(function (response) {
+            $scope.names = response.records;
+        });
+    });
+
+</script>
+</html>

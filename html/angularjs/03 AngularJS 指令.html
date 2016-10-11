@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-app="">
+
+<!-- AngularJS 扩展了 HTML  -->
+<div>
+    <!-- ng-app 指令定义一个 AngularJS 应用程序。  -->
+    <!-- ng-model 指令把元素值（比如输入域的值）绑定到应用程序。  -->
+    <!-- ng-bind 指令把应用程序数据绑定到 HTML 视图。  -->
+    <p>名字 : <input type="text" ng-model="name"></p>
+    <h1>Hello {{name}}</h1>
+</div>
+
+<!-- AngularJS 指令  -->
+<div ng-init="firstName='John'">
+    <!-- ng-init 指令初始化 AngularJS 应用程序变量。  -->
+    <p>姓名为 <span ng-bind="firstName"></span></p>
+</div>
+
+<!-- AngularJS 表达式  -->
+<div>
+    <p>我的第一个表达式： {{ 5 + 5 }}</p>
+</div>
+
+</body>
+</html>

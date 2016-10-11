@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-app="myApp">
+
+在 AngularJS 中，服务是一个函数或对象，可在你的 AngularJS 应用中使用。<br/>
+AngularJS 内建了30 多个服务。<br/><br/>
+
+有个 $location 服务，它可以返回当前页面的 URL 地址。
+<div ng-controller="myCtrol1">
+    {{myUrl}}
+</div>
+<br/>
+
+使用 $http 服务向服务器请求数据:
+<div ng-controller="myCtrol2">
+    {{myWelcome}}
+</div>
+<br/>
+
+AngularJS $timeout 服务对应了 JS window.setTimeout 函数。
+<div ng-controller="myCtrol3">
+    {{myHeader}}
+</div>
+<br/>
+
+AngularJS $interval 服务对应了 JS window.setInterval 函数。
+<div ng-controller="myCtrol4">
+    {{theTime}}
+</div>
+<br/>
+
+创建自定义服务
+<div ng-controller="myCtrol5">
+    {{hex}}
+</div>
+<br/>
+
+过滤器中，使用自定义服务
+<div ng-controller="myCtrol6">
+    <ul>
+        <li ng-repeat="x in counts">{{x | myFormat}}</li>
+    </ul>
+</div>
+<br/>
+
+</body>
+<script>
+    var app = angular.module('myApp', []);
+
+    app.controller('myCtrol1', function($scope, $location) {
+        $scope.myUrl = $location.absUrl();
+    });
+
+    app.controller('myCtrol2', function($scope, $http) {
+        $http.get("welcome.html").then(function (response) {
+            $scope.myWelcome = response.data;
+        });
+    });
+
+    app.controller('myCtrol3', function($scope, $timeout) {
+        $scope.myHeader = "Hello World!";
+        $timeout(function () {
+            $scope.myHeader = "How are you today?";
+        }, 2000);
+    });
+
+    app.controller('myCtrol4', function($scope, $interval) {
+        $scope.theTime = new Date().toLocaleTimeString();
+        $interval(function () {
+            $scope.theTime = new Date().toLocaleTimeString();
+        }, 1000);
+    });
+
+    /*使用自定义的的服务 hexafy 将一个数字转换为16进制数:*/
+    app.service('hexafy', function() {
+        this.myFunc = function (x) {
+            return x.toString(16);
+        }
+    });
+    app.controller('myCtrol5', function($scope, hexafy) {
+        $scope.hex = hexafy.myFunc(255);
+    });
+
+    /*过滤器中，使用自定义服务*/
+    app.filter('myFormat',['hexafy', function(hexafy) {
+        return function(x) {
+            return hexafy.myFunc(x);
+        };
+    }]);
+    app.controller('myCtrol6', function($scope) {
+        $scope.counts = [123, 434, 256, 166];
+    });
+
+</script>
+</html>

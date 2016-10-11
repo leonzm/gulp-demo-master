@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <style>
+        input.ng-invalid {
+            background-color: lightblue;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-app="myApp">
+
+<!-- ng-model 指令可以将输入域的值与 AngularJS 创建的变量绑定。  -->
+<div ng-controller="myCtrl1">
+    名字: <input ng-model="name">
+    <h1>你输入了: {{name}}</h1> <!--双向绑定，在修改输入域的值时， AngularJS 属性的值也将修改-->
+</div>
+
+<!--验证用户输入-->
+<form name="form1">
+    Email:
+    <input type="email" name="address" ng-model="text">
+    <span ng-show="form1.address.$error.email">不是一个合法的邮箱地址</span>
+</form>
+<br/><br/>
+
+<!--应用状态-->
+<!--ng-model 指令可以为应用数据提供状态值(invalid, dirty, touched, error):-->
+<form name="myForm" ng-init="myText = 'test@runoob.com'">
+    Email:
+    <input type="email" name="myAddress" ng-model="myText" required></p>
+    <h1>状态</h1>
+    {{myForm.myAddress.$valid}}
+    {{myForm.myAddress.$dirty}}
+    {{myForm.myAddress.$touched}}
+</form>
+<br/><br/>
+
+<!-- CSS 类  -->
+<!--ng-model 指令基于它们的状态为 HTML 元素提供了 CSS 类-->
+<form name="myForm2">
+    输入你的名字:
+    <input name="myAddress2" ng-model="myAddress2" required>
+</form>
+
+</body>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl1', function($scope) {
+        $scope.name = "John Doe";
+    });
+</script>
+</html>
